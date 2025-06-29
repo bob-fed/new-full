@@ -1,0 +1,141 @@
+{
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "cancel": "ביטול",
+    "save": "שמירה",
+    "delete": "מחיקה",
+    "edit": "עריכה",
+    "view": "צפייה",
+    "search": "חיפוש",
+    "filter": "סינון",
+    "sort": "מיון",
+    "next": "הבא",
+    "previous": "הקודם",
+    "submit": "שליחה",
+    "close": "סגירה"
+  },
+  "auth": {
+    "login": "התחברות",
+    "register": "הרשמה",
+    "logout": "התנתקות",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "confirmPassword": "אישור סיסמה",
+    "firstName": "שם פרטי",
+    "lastName": "שם משפחה",
+    "phone": "טלפון",
+    "forgotPassword": "שכחת סיסמה?",
+    "dontHaveAccount": "אין לך חשבון?",
+    "alreadyHaveAccount": "יש לך כבר חשבון?",
+    "loginSuccess": "התחברות בוצעה בהצלחה",
+    "registerSuccess": "הרשמה בוצעה בהצלחה",
+    "invalidCredentials": "פרטי התחברות שגויים",
+    "emailRequired": "אימייל נדרש",
+    "passwordRequired": "סיסמה נדרשת",
+    "passwordTooShort": "הסיסמה חייבת להכיל לפחות 6 תווים",
+    "passwordsNotMatch": "הסיסמאות אינן תואמות"
+  },
+  "navigation": {
+    "home": "בית",
+    "tasks": "משימות",
+    "profile": "פרופיל",
+    "chat": "צ'אט",
+    "dashboard": "לוח בקרה",
+    "createTask": "יצירת משימה",
+    "myTasks": "המשימות שלי",
+    "applications": "בקשות"
+  },
+  "landing": {
+    "hero": {
+      "title": "מצא שירותים מקומיים וסיים דברים",
+      "subtitle": "התחבר עם אנשי מקצוע מיומנים באזורך לכל משימה, גדולה או קטנה",
+      "ctaClient": "פרסם משימה",
+      "ctaProvider": "הפוך לנותן שירות"
+    },
+    "features": {
+      "title": "איך זה עובד",
+      "postTask": {
+        "title": "פרסם את המשימה שלך",
+        "description": "תאר מה אתה צריך לעשות וקבע את התקציב שלך"
+      },
+      "getOffers": {
+        "title": "קבל הצעות",
+        "description": "קבל הצעות מנותני שירות מוסמכים"
+      },
+      "chooseProvider": {
+        "title": "בחר ושלם",
+        "description": "בחר את נותן השירות הטוב ביותר ושלם בבטחה דרך הפלטפורמה שלנו"
+      }
+    },
+    "categories": {
+      "title": "קטגוריות פופולריות",
+      "cleaning": "ניקיון",
+      "plumbing": "אינסטלציה",
+      "tutoring": "שיעורים פרטיים",
+      "delivery": "משלוחים",
+      "handyman": "איש מקצוע",
+      "moving": "הובלות",
+      "petCare": "טיפול בחיות מחמד",
+      "gardening": "גינון"
+    }
+  },
+  "tasks": {
+    "title": "משימות זמינות",
+    "createTask": "יצירת משימה חדשה",
+    "taskTitle": "כותרת המשימה",
+    "description": "תיאור",
+    "budget": "תקציב",
+    "deadline": "מועד אחרון",
+    "location": "מיקום",
+    "category": "קטגוריה",
+    "status": "סטטוס",
+    "applications": "בקשות",
+    "apply": "הגש בקשה",
+    "viewDetails": "צפה בפרטים",
+    "noTasks": "אין משימות זמינות",
+    "taskCreated": "המשימה נוצרה בהצלחה",
+    "applicationSent": "הבקשה נשלחה בהצלחה",
+    "statuses": {
+      "open": "פתוח",
+      "assigned": "הוקצה",
+      "inProgress": "בתהליך",
+      "completed": "הושלם",
+      "cancelled": "בוטל"
+    }
+  },
+  "profile": {
+    "title": "פרופיל",
+    "editProfile": "עריכת פרופיל",
+    "bio": "ביוגרפיה",
+    "rating": "דירוג",
+    "reviews": "ביקורות",
+    "completedTasks": "משימות שהושלמו",
+    "joinedDate": "הצטרף",
+    "verification": {
+      "verified": "נותן שירות מאומת",
+      "notVerified": "לא מאומת",
+      "requestVerification": "בקש אימות"
+    }
+  },
+  "chat": {
+    "title": "הודעות",
+    "typeMessage": "הקלד הודעה...",
+    "send": "שלח",
+    "noMessages": "אין הודעות עדיין",
+    "startConversation": "התחל שיחה"
+  },
+  "admin": {
+    "dashboard": "לוח בקרה מנהל",
+    "users": "משתמשים",
+    "tasks": "משימות",
+    "payments": "תשלומים",
+    "reports": "דוחות",
+    "verifyProvider": "אמת נותן שירות",
+    "suspendUser": "השעה משתמש",
+    "totalUsers": "סך המשתמשים",
+    "activeTasks": "משימות פעילות",
+    "totalRevenue": "סך ההכנסות"
+  }
+}

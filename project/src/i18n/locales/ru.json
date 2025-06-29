@@ -1,0 +1,141 @@
+{
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успех",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "view": "Просмотр",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировка",
+    "next": "Далее",
+    "previous": "Назад",
+    "submit": "Отправить",
+    "close": "Закрыть"
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "logout": "Выйти",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердить пароль",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "phone": "Телефон",
+    "forgotPassword": "Забыли пароль?",
+    "dontHaveAccount": "Нет аккаунта?",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "loginSuccess": "Вход выполнен успешно",
+    "registerSuccess": "Регистрация прошла успешно",
+    "invalidCredentials": "Неверные учетные данные",
+    "emailRequired": "Email обязателен",
+    "passwordRequired": "Пароль обязателен",
+    "passwordTooShort": "Пароль должен содержать минимум 6 символов",
+    "passwordsNotMatch": "Пароли не совпадают"
+  },
+  "navigation": {
+    "home": "Главная",
+    "tasks": "Задачи",
+    "profile": "Профиль",
+    "chat": "Чат",
+    "dashboard": "Панель управления",
+    "createTask": "Создать задачу",
+    "myTasks": "Мои задачи",
+    "applications": "Заявки"
+  },
+  "landing": {
+    "hero": {
+      "title": "Найдите местные услуги и выполните дела",
+      "subtitle": "Свяжитесь с квалифицированными специалистами в вашем районе для любой задачи, большой или маленькой",
+      "ctaClient": "Разместить задачу",
+      "ctaProvider": "Стать исполнителем"
+    },
+    "features": {
+      "title": "Как это работает",
+      "postTask": {
+        "title": "Разместите вашу задачу",
+        "description": "Опишите, что нужно сделать, и установите ваш бюджет"
+      },
+      "getOffers": {
+        "title": "Получите предложения",
+        "description": "Получайте предложения от квалифицированных поставщиков услуг"
+      },
+      "chooseProvider": {
+        "title": "Выберите и оплатите",
+        "description": "Выберите лучшего исполнителя и оплатите безопасно через нашу платформу"
+      }
+    },
+    "categories": {
+      "title": "Популярные категории",
+      "cleaning": "Уборка",
+      "plumbing": "Сантехника",
+      "tutoring": "Репетиторство",
+      "delivery": "Доставка",
+      "handyman": "Мастер на час",
+      "moving": "Переезд",
+      "petCare": "Уход за животными",
+      "gardening": "Садоводство"
+    }
+  },
+  "tasks": {
+    "title": "Доступные задачи",
+    "createTask": "Создать новую задачу",
+    "taskTitle": "Название задачи",
+    "description": "Описание",
+    "budget": "Бюджет",
+    "deadline": "Срок",
+    "location": "Местоположение",
+    "category": "Категория",
+    "status": "Статус",
+    "applications": "Заявки",
+    "apply": "Подать заявку",
+    "viewDetails": "Посмотреть детали",
+    "noTasks": "Нет доступных задач",
+    "taskCreated": "Задача создана успешно",
+    "applicationSent": "Заявка отправлена успешно",
+    "statuses": {
+      "open": "Открыта",
+      "assigned": "Назначена",
+      "inProgress": "В процессе",
+      "completed": "Завершена",
+      "cancelled": "Отменена"
+    }
+  },
+  "profile": {
+    "title": "Профиль",
+    "editProfile": "Редактировать профиль",
+    "bio": "Биография",
+    "rating": "Рейтинг",
+    "reviews": "Отзывы",
+    "completedTasks": "Выполненные задачи",
+    "joinedDate": "Присоединился",
+    "verification": {
+      "verified": "Проверенный исполнитель",
+      "notVerified": "Не проверен",
+      "requestVerification": "Запросить проверку"
+    }
+  },
+  "chat": {
+    "title": "Сообщения",
+    "typeMessage": "Введите сообщение...",
+    "send": "Отправить",
+    "noMessages": "Пока нет сообщений",
+    "startConversation": "Начать разговор"
+  },
+  "admin": {
+    "dashboard": "Панель администратора",
+    "users": "Пользователи",
+    "tasks": "Задачи",
+    "payments": "Платежи",
+    "reports": "Отчеты",
+    "verifyProvider": "Проверить исполнителя",
+    "suspendUser": "Заблокировать пользователя",
+    "totalUsers": "Всего пользователей",
+    "activeTasks": "Активные задачи",
+    "totalRevenue": "Общий доход"
+  }
+}

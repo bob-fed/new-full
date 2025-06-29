@@ -1,0 +1,141 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "invalidCredentials": "Invalid credentials",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordsNotMatch": "Passwords do not match"
+  },
+  "navigation": {
+    "home": "Home",
+    "tasks": "Tasks",
+    "profile": "Profile",
+    "chat": "Chat",
+    "dashboard": "Dashboard",
+    "createTask": "Create Task",
+    "myTasks": "My Tasks",
+    "applications": "Applications"
+  },
+  "landing": {
+    "hero": {
+      "title": "Find Local Services & Get Things Done",
+      "subtitle": "Connect with skilled professionals in your area for any task, big or small",
+      "ctaClient": "Post a Task",
+      "ctaProvider": "Become a Provider"
+    },
+    "features": {
+      "title": "How It Works",
+      "postTask": {
+        "title": "Post Your Task",
+        "description": "Describe what you need done and set your budget"
+      },
+      "getOffers": {
+        "title": "Get Offers",
+        "description": "Receive proposals from qualified service providers"
+      },
+      "chooseProvider": {
+        "title": "Choose & Pay",
+        "description": "Select the best provider and pay securely through our platform"
+      }
+    },
+    "categories": {
+      "title": "Popular Categories",
+      "cleaning": "Cleaning",
+      "plumbing": "Plumbing",
+      "tutoring": "Tutoring",
+      "delivery": "Delivery",
+      "handyman": "Handyman",
+      "moving": "Moving",
+      "petCare": "Pet Care",
+      "gardening": "Gardening"
+    }
+  },
+  "tasks": {
+    "title": "Available Tasks",
+    "createTask": "Create New Task",
+    "taskTitle": "Task Title",
+    "description": "Description",
+    "budget": "Budget",
+    "deadline": "Deadline",
+    "location": "Location",
+    "category": "Category",
+    "status": "Status",
+    "applications": "Applications",
+    "apply": "Apply",
+    "viewDetails": "View Details",
+    "noTasks": "No tasks available",
+    "taskCreated": "Task created successfully",
+    "applicationSent": "Application sent successfully",
+    "statuses": {
+      "open": "Open",
+      "assigned": "Assigned",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "bio": "Bio",
+    "rating": "Rating",
+    "reviews": "Reviews",
+    "completedTasks": "Completed Tasks",
+    "joinedDate": "Joined",
+    "verification": {
+      "verified": "Verified Provider",
+      "notVerified": "Not Verified",
+      "requestVerification": "Request Verification"
+    }
+  },
+  "chat": {
+    "title": "Messages",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "noMessages": "No messages yet",
+    "startConversation": "Start a conversation"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "users": "Users",
+    "tasks": "Tasks",
+    "payments": "Payments",
+    "reports": "Reports",
+    "verifyProvider": "Verify Provider",
+    "suspendUser": "Suspend User",
+    "totalUsers": "Total Users",
+    "activeTasks": "Active Tasks",
+    "totalRevenue": "Total Revenue"
+  }
+}
