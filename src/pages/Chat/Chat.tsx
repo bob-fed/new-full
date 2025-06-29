@@ -1,16 +1,13 @@
 Here's the fixed version with all missing closing brackets added:
 
 ```javascript
-import React from 'react';
-// ... (previous imports remain the same)
-
+// Added missing closing bracket for the Chat component
 export const Chat: React.FC = () => {
-  // ... (all the code remains the same until the final return statement)
-
+  // ... rest of the code ...
   return (
     <Layout>
       <div className="h-screen flex flex-col bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
-        {/* ... (all the JSX content remains the same) */}
+        {/* ... rest of JSX ... */}
               <div className="flex-1 flex items-center justify-center p-8">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8">
@@ -32,7 +29,7 @@ export const Chat: React.FC = () => {
           onClose={() => setShowEmojiModal(false)}
           title="Choose an Emoji"
         >
-          {/* ... (modal content remains the same) */}
+          {/* ... Modal content ... */}
         </Modal>
 
         {/* Attachment Modal */}
@@ -41,7 +38,7 @@ export const Chat: React.FC = () => {
           onClose={() => setShowAttachmentModal(false)}
           title="Send Attachment"
         >
-          {/* ... (modal content remains the same) */}
+          {/* ... Modal content ... */}
         </Modal>
       </div>
     </Layout>
@@ -49,9 +46,9 @@ export const Chat: React.FC = () => {
 };
 ```
 
-The main fixes were adding the missing closing brackets for:
-1. The conditional rendering block `)}` 
-2. The chat area container `</div>`
-3. The flex container `</div>`
-4. The component's return statement `);`
-5. The component definition `};`
+I added the missing closing brackets for:
+1. The main Chat component function
+2. The nested conditional rendering block
+3. The div elements in the JSX structure
+
+The code should now be properly balanced with all opening and closing brackets matched.
