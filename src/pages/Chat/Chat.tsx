@@ -18,9 +18,12 @@ import {
   Plus,
   X,
   Image,
-  File
+  File,
+  Camera,
+  Mic
 } from 'lucide-react';
 import { Layout } from '../../components/Layout/Layout';
+import { Modal } from '../../components/UI/Modal';
 import { useAuth } from '../../contexts/AuthContext';
 import { Message } from '../../types';
 import { chatService } from '../../services/chatService';
@@ -74,7 +77,10 @@ export const Chat: React.FC = () => {
   const [showConversations, setShowConversations] = React.useState(true);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isOnline, setIsOnline] = React.useState(true);
-  const [showEmojiPicker, setShowEmojiPicker] = React.useState(false);
+  
+  // Modal states
+  const [showEmojiModal, setShowEmojiModal] = React.useState(false);
+  const [showAttachmentModal, setShowAttachmentModal] = React.useState(false);
 
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
@@ -306,55 +312,59 @@ export const Chat: React.FC = () => {
     setSelectedConversation(null);
   };
 
-  // Button handlers with proper event handling
-  const handlePhoneCall = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // Working button handlers
+  const handlePhoneCall = () => {
     console.log('📞 Phone call initiated');
-    alert('Phone call feature coming soon!');
+    alert('📞 Phone call feature will be available soon!');
   };
 
-  const handleVideoCall = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleVideoCall = () => {
     console.log('📹 Video call initiated');
-    alert('Video call feature coming soon!');
+    alert('📹 Video call feature will be available soon!');
   };
 
-  const handleMoreOptions = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleMoreOptions = () => {
     console.log('⚙️ More options clicked');
-    alert('More options menu coming soon!');
+    alert('⚙️ More options menu will be available soon!');
   };
 
-  const handleAttachment = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAttachment = () => {
     console.log('📎 Attachment clicked');
+    setShowAttachmentModal(true);
+  };
+
+  const handleFileSelect = (type: string) => {
+    console.log(`📁 ${type} selected`);
+    setShowAttachmentModal(false);
+    
     if (fileInputRef.current) {
+      if (type === 'image') {
+        fileInputRef.current.accept = 'image/*';
+      } else if (type === 'document') {
+        fileInputRef.current.accept = '.pdf,.doc,.docx,.txt';
+      } else {
+        fileInputRef.current.accept = '*';
+      }
       fileInputRef.current.click();
     }
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       console.log('Files selected:', Array.from(files).map(f => f.name));
-      alert(`Selected ${files.length} file(s). File upload feature coming soon!`);
+      alert(`📁 Selected ${files.length} file(s). File upload feature coming soon!`);
     }
   };
 
-  const handleEmoji = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleEmoji = () => {
     console.log('😊 Emoji clicked');
-    setShowEmojiPicker(!showEmojiPicker);
+    setShowEmojiModal(true);
   };
 
   const handleEmojiSelect = (emoji: string) => {
     setNewMessage(prev => prev + emoji);
-    setShowEmojiPicker(false);
+    setShowEmojiModal(false);
     textareaRef.current?.focus();
   };
 
@@ -375,9 +385,7 @@ export const Chat: React.FC = () => {
   if (isLoading) {
     return (
       <Layout>
-        <div className="h-screen flex items-center justify-center" style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-        }}>
+        <div className="h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-white border-t-transparent mx-auto mb-4"></div>
             <p className="text-white font-medium text-lg">Loading conversations...</p>
@@ -389,46 +397,42 @@ export const Chat: React.FC = () => {
 
   return (
     <Layout>
-      <div className="h-screen flex flex-col" style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      }}>
+      <div className="h-screen flex flex-col bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
         {/* Hidden file input */}
         <input
           ref={fileInputRef}
           type="file"
           multiple
-          accept="image/*,document/*,.pdf,.doc,.docx"
-          onChange={handleFileSelect}
+          onChange={handleFileChange}
           className="hidden"
         />
 
         {/* Mobile Header */}
-        <div className="lg:hidden bg-white/90 backdrop-blur-md border-b border-white/20 px-4 py-3 shadow-lg">
+        <div className="lg:hidden bg-black/20 backdrop-blur-xl border-b border-white/10 px-4 py-3">
           {selectedConversation ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <button
                   onClick={handleBackToConversations}
-                  className="p-2 hover:bg-gray-100 rounded-xl transition-all duration-200 active:scale-95"
-                  type="button"
+                  className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                 >
-                  <ArrowLeft className="w-5 h-5 text-gray-700" />
+                  <ArrowLeft className="w-5 h-5 text-white" />
                 </button>
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                       <User className="w-5 h-5 text-white" />
                     </div>
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
                   </div>
                   <div>
-                    <h1 className="text-lg font-semibold text-gray-900">
+                    <h1 className="text-lg font-semibold text-white">
                       {selectedConversation.sender.id === user?.id 
                         ? `${selectedConversation.receiver.first_name} ${selectedConversation.receiver.last_name}`
                         : `${selectedConversation.sender.first_name} ${selectedConversation.sender.last_name}`
                       }
                     </h1>
-                    <p className="text-sm text-green-600 font-medium">
+                    <p className="text-sm text-green-400 font-medium">
                       {isOnline ? 'Online' : 'Offline'}
                     </p>
                   </div>
@@ -437,36 +441,32 @@ export const Chat: React.FC = () => {
               <div className="flex items-center space-x-1">
                 <button
                   onClick={handlePhoneCall}
-                  className="p-2.5 hover:bg-blue-50 rounded-xl transition-all duration-200 active:scale-95 group"
-                  type="button"
+                  className="p-2.5 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                 >
-                  <Phone className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                  <Phone className="w-5 h-5 text-white" />
                 </button>
                 <button
                   onClick={handleVideoCall}
-                  className="p-2.5 hover:bg-blue-50 rounded-xl transition-all duration-200 active:scale-95 group"
-                  type="button"
+                  className="p-2.5 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                 >
-                  <Video className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                  <Video className="w-5 h-5 text-white" />
                 </button>
                 <button
                   onClick={handleMoreOptions}
-                  className="p-2.5 hover:bg-blue-50 rounded-xl transition-all duration-200 active:scale-95 group"
-                  type="button"
+                  className="p-2.5 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                 >
-                  <MoreVertical className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+                  <MoreVertical className="w-5 h-5 text-white" />
                 </button>
               </div>
             </div>
           ) : (
             <div className="flex items-center justify-between">
-              <h1 className="text-xl font-bold text-gray-900">{t('chat.title')}</h1>
+              <h1 className="text-xl font-bold text-white">{t('chat.title')}</h1>
               <button
                 onClick={() => console.log('New chat')}
-                className="p-2 hover:bg-blue-50 rounded-xl transition-all duration-200 active:scale-95"
-                type="button"
+                className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
               >
-                <Plus className="w-5 h-5 text-blue-600" />
+                <Plus className="w-5 h-5 text-white" />
               </button>
             </div>
           )}
@@ -474,9 +474,9 @@ export const Chat: React.FC = () => {
 
         <div className="flex-1 flex overflow-hidden">
           {/* Conversations Sidebar */}
-          <div className={`${showConversations ? 'flex' : 'hidden'} lg:flex flex-col w-full lg:w-96 bg-white/10 backdrop-blur-md border-r border-white/20`}>
+          <div className={`${showConversations ? 'flex' : 'hidden'} lg:flex flex-col w-full lg:w-96 bg-black/20 backdrop-blur-xl border-r border-white/10`}>
             {/* Desktop Header */}
-            <div className="hidden lg:block p-6 border-b border-white/20">
+            <div className="hidden lg:block p-6 border-b border-white/10">
               <div className="flex items-center justify-between mb-6">
                 <h1 className="text-2xl font-bold text-white">
                   {t('chat.title')}
@@ -484,17 +484,15 @@ export const Chat: React.FC = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => console.log('New chat')}
-                    className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                    type="button"
+                    className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                   >
-                    <Plus className="w-5 h-5 text-white group-hover:text-blue-200" />
+                    <Plus className="w-5 h-5 text-white" />
                   </button>
                   <button
                     onClick={() => console.log('Settings')}
-                    className="p-2 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                    type="button"
+                    className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                   >
-                    <Settings className="w-5 h-5 text-white group-hover:text-blue-200" />
+                    <Settings className="w-5 h-5 text-white" />
                   </button>
                 </div>
               </div>
@@ -507,7 +505,7 @@ export const Chat: React.FC = () => {
                   placeholder="Search conversations..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white/20 border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/30 transition-all duration-200 placeholder-white/60 text-white"
+                  className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:bg-white/20 transition-all duration-200 placeholder-white/60 text-white backdrop-blur-sm"
                 />
               </div>
             </div>
@@ -534,17 +532,16 @@ export const Chat: React.FC = () => {
                         onClick={() => setSelectedConversation(conversation)}
                         className={`w-full p-4 mb-2 text-left rounded-2xl transition-all duration-200 ${
                           isSelected 
-                            ? 'bg-white/30 backdrop-blur-md shadow-lg border border-white/40' 
-                            : 'hover:bg-white/20 hover:backdrop-blur-md'
+                            ? 'bg-white/20 backdrop-blur-md shadow-lg border border-white/30' 
+                            : 'hover:bg-white/10 hover:backdrop-blur-md'
                         }`}
-                        type="button"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="relative">
                             <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-md ${
                               isSelected 
-                                ? 'bg-white/30' 
-                                : 'bg-white/20'
+                                ? 'bg-gradient-to-br from-cyan-400 to-blue-500' 
+                                : 'bg-gradient-to-br from-purple-400 to-pink-500'
                             }`}>
                               {otherUser.avatar_url ? (
                                 <img
@@ -556,7 +553,7 @@ export const Chat: React.FC = () => {
                                 <User className="w-6 h-6 text-white" />
                               )}
                             </div>
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
                           </div>
                           
                           <div className="flex-1 min-w-0">
@@ -578,7 +575,7 @@ export const Chat: React.FC = () => {
                                 Task: {conversation.task.title}
                               </span>
                               {!conversation.is_read && conversation.sender.id !== user?.id && !isSelected && (
-                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
                               )}
                             </div>
                           </div>
@@ -589,7 +586,7 @@ export const Chat: React.FC = () => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-                  <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                  <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6">
                     <MessageCircle className="w-10 h-10 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold text-white mb-2">No conversations</h3>
@@ -602,17 +599,17 @@ export const Chat: React.FC = () => {
           </div>
 
           {/* Chat Area */}
-          <div className={`${!showConversations ? 'flex' : 'hidden'} lg:flex flex-col flex-1 bg-white/5 backdrop-blur-sm`}>
+          <div className={`${!showConversations ? 'flex' : 'hidden'} lg:flex flex-col flex-1 bg-black/10 backdrop-blur-sm`}>
             {selectedConversation ? (
               <>
                 {/* Chat Header */}
-                <div className="hidden lg:flex items-center justify-between p-6 border-b border-white/20 bg-white/10 backdrop-blur-md">
+                <div className="hidden lg:flex items-center justify-between p-6 border-b border-white/10 bg-black/20 backdrop-blur-xl">
                   <div className="flex items-center space-x-4">
                     <div className="relative">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center shadow-lg">
+                      <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
                         <User className="w-6 h-6 text-white" />
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
                     </div>
                     <div>
                       <h2 className="text-lg font-semibold text-white">
@@ -630,24 +627,21 @@ export const Chat: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={handlePhoneCall}
-                      className="p-3 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                      type="button"
+                      className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                     >
-                      <Phone className="w-5 h-5 text-white group-hover:text-blue-200" />
+                      <Phone className="w-5 h-5 text-white" />
                     </button>
                     <button
                       onClick={handleVideoCall}
-                      className="p-3 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                      type="button"
+                      className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                     >
-                      <Video className="w-5 h-5 text-white group-hover:text-blue-200" />
+                      <Video className="w-5 h-5 text-white" />
                     </button>
                     <button
                       onClick={handleMoreOptions}
-                      className="p-3 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                      type="button"
+                      className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                     >
-                      <MoreVertical className="w-5 h-5 text-white group-hover:text-blue-200" />
+                      <MoreVertical className="w-5 h-5 text-white" />
                     </button>
                   </div>
                 </div>
@@ -679,14 +673,14 @@ export const Chat: React.FC = () => {
                             isMyMessage ? 'flex-row-reverse space-x-reverse' : ''
                           }`}>
                             {!isMyMessage && showAvatar && (
-                              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center shadow-md">
+                              <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-md">
                                 <User className="w-4 h-4 text-white" />
                               </div>
                             )}
                             
                             <div className={`relative px-4 py-3 rounded-2xl shadow-lg backdrop-blur-md ${
                               isMyMessage
-                                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-br-md'
+                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-md'
                                 : 'bg-white/90 border border-white/20 text-gray-900 rounded-bl-md'
                             }`}>
                               <p className="text-sm break-words leading-relaxed">{message.content}</p>
@@ -728,7 +722,7 @@ export const Chat: React.FC = () => {
                         className="flex justify-start"
                       >
                         <div className="flex items-end space-x-3">
-                          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
                             <User className="w-4 h-4 text-white" />
                           </div>
                           <div className="bg-white/90 border border-white/20 px-4 py-3 rounded-2xl rounded-bl-md shadow-lg backdrop-blur-md">
@@ -749,14 +743,13 @@ export const Chat: React.FC = () => {
                 </div>
 
                 {/* Message Input - Always visible at bottom */}
-                <div className="sticky bottom-0 p-6 bg-white/10 backdrop-blur-md border-t border-white/20">
+                <div className="sticky bottom-0 p-6 bg-black/20 backdrop-blur-xl border-t border-white/10">
                   <div className="flex items-end space-x-3">
                     <button
                       onClick={handleAttachment}
-                      className="p-3 text-white/70 hover:bg-white/20 rounded-xl transition-all duration-200 active:scale-95 group"
-                      type="button"
+                      className="p-3 text-white/70 hover:bg-white/10 rounded-xl transition-all duration-200 active:scale-95"
                     >
-                      <Paperclip className="w-5 h-5 group-hover:text-white" />
+                      <Paperclip className="w-5 h-5" />
                     </button>
                     
                     <div className="flex-1 relative">
@@ -767,56 +760,22 @@ export const Chat: React.FC = () => {
                         onKeyPress={handleKeyPress}
                         placeholder="Type a message..."
                         rows={1}
-                        className="w-full px-4 py-3 pr-12 bg-white/90 border border-white/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent resize-none transition-all duration-200 placeholder-gray-500 text-gray-900 backdrop-blur-md"
+                        className="w-full px-4 py-3 pr-12 bg-white/90 border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-transparent resize-none transition-all duration-200 placeholder-gray-500 text-gray-900 backdrop-blur-md"
                         style={{ maxHeight: '120px' }}
                         disabled={isSending}
                       />
-                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                        <button 
-                          onClick={handleEmoji}
-                          className="p-2 text-gray-500 hover:bg-gray-200 rounded-lg transition-all duration-200 active:scale-95 group"
-                          type="button"
-                        >
-                          <Smile className="w-5 h-5 group-hover:text-blue-600" />
-                        </button>
-                      </div>
-                      
-                      {/* Emoji Picker */}
-                      <AnimatePresence>
-                        {showEmojiPicker && (
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                            className="absolute bottom-full right-0 mb-2 bg-white/95 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl p-4 grid grid-cols-6 gap-2"
-                          >
-                            {['😊', '😂', '❤️', '👍', '👎', '😢', '😮', '😡', '🎉', '🔥', '💯', '✨'].map((emoji) => (
-                              <button
-                                key={emoji}
-                                onClick={() => handleEmojiSelect(emoji)}
-                                className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-lg active:scale-95"
-                                type="button"
-                              >
-                                {emoji}
-                              </button>
-                            ))}
-                            <button
-                              onClick={() => setShowEmojiPicker(false)}
-                              className="col-span-6 p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
-                              type="button"
-                            >
-                              <X className="w-4 h-4 mx-auto" />
-                            </button>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <button 
+                        onClick={handleEmoji}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:bg-gray-200 rounded-lg transition-all duration-200 active:scale-95"
+                      >
+                        <Smile className="w-5 h-5" />
+                      </button>
                     </div>
                     
                     <button
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim() || isSending}
-                      className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed rounded-xl p-0 flex items-center justify-center transition-all duration-200 active:scale-95 shadow-lg"
-                      type="button"
+                      className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed rounded-xl p-0 flex items-center justify-center transition-all duration-200 active:scale-95 shadow-lg"
                     >
                       <Send className="w-5 h-5 text-white" />
                     </button>
@@ -826,7 +785,7 @@ export const Chat: React.FC = () => {
             ) : (
               <div className="flex-1 flex items-center justify-center p-8">
                 <div className="text-center">
-                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8">
                     <MessageCircle className="w-12 h-12 text-white" />
                   </div>
                   <h3 className="text-2xl font-semibold text-white mb-4">Welcome to Chat</h3>
@@ -834,10 +793,75 @@ export const Chat: React.FC = () => {
                     Select a conversation from the sidebar to start messaging with task providers and clients.
                   </p>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
+
+        {/* Emoji Modal */}
+        <Modal
+          isOpen={showEmojiModal}
+          onClose={() => setShowEmojiModal(false)}
+          title="Choose an Emoji"
+        >
+          <div className="grid grid-cols-8 gap-3 p-4">
+            {[
+              '😊', '😂', '❤️', '👍', '👎', '😢', '😮', '😡', 
+              '🎉', '🔥', '💯', '✨', '🚀', '💪', '👏', '🙌',
+              '😍', '🤔', '😎', '🤗', '😴', '🤤', '🤯', '🥳',
+              '😇', '🤠', '🤡', '🥺', '😈', '👻', '💀', '🤖'
+            ].map((emoji) => (
+              <button
+                key={emoji}
+                onClick={() => handleEmojiSelect(emoji)}
+                className="p-3 hover:bg-gray-100 rounded-lg transition-colors text-2xl active:scale-95 hover:scale-110"
+              >
+                {emoji}
+              </button>
+            ))}
+          </div>
+        </Modal>
+
+        {/* Attachment Modal */}
+        <Modal
+          isOpen={showAttachmentModal}
+          onClose={() => setShowAttachmentModal(false)}
+          title="Send Attachment"
+        >
+          <div className="grid grid-cols-2 gap-4 p-4">
+            <button
+              onClick={() => handleFileSelect('image')}
+              className="flex flex-col items-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 active:scale-95"
+            >
+              <Image className="w-8 h-8 text-blue-500 mb-2" />
+              <span className="text-sm font-medium text-gray-700">Photos</span>
+            </button>
+            
+            <button
+              onClick={() => handleFileSelect('document')}
+              className="flex flex-col items-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all duration-200 active:scale-95"
+            >
+              <File className="w-8 h-8 text-green-500 mb-2" />
+              <span className="text-sm font-medium text-gray-700">Documents</span>
+            </button>
+            
+            <button
+              onClick={() => handleFileSelect('camera')}
+              className="flex flex-col items-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 active:scale-95"
+            >
+              <Camera className="w-8 h-8 text-purple-500 mb-2" />
+              <span className="text-sm font-medium text-gray-700">Camera</span>
+            </button>
+            
+            <button
+              onClick={() => handleFileSelect('audio')}
+              className="flex flex-col items-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-red-500 hover:bg-red-50 transition-all duration-200 active:scale-95"
+            >
+              <Mic className="w-8 h-8 text-red-500 mb-2" />
+              <span className="text-sm font-medium text-gray-700">Audio</span>
+            </button>
+          </div>
+        </Modal>
       </div>
     </Layout>
   );
